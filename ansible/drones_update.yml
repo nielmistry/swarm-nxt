@@ -15,6 +15,29 @@
       path: "{{ drone_ros_path }}/src"
       state: directory
 
+  - name: Configure ros_packages bash helpers
+    block:
+      - name: Ensure ~/.bash_aliases file exists
+        ansible.builtin.file:
+          path: "~/.bash_aliases"
+          state: touch
+          mode: '0644'
+
+      - name: Add ros_packages helper aliases
+        ansible.builtin.blockinfile:
+          path: "~/.bash_aliases"
+          marker: "# {mark} ANSIBLE MANAGED ROS_PACKAGES HELPERS"
+          block: |
+            # Convenience helpers for managing the ros_packages user service
+            # Usage:
+            #   rosctl <status|restart|start|stop> [additional systemctl options]
+            #   roslogs [additional journalctl options]
+            function rosctl() {
+                systemctl --user "$@" ros_packages
+            }
+
+            alias roslogs='journalctl --user -u ros_packages'
+
   - name: Optitrack
     when: "position_estimation == 'optitrack'"
     block: 
