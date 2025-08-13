@@ -11,4 +11,4 @@ source /opt/ros/humble/setup.bash
 source install/setup.bash
 
 
-ros2 launch {{ base_path }}/launch.py 
+exec ros2 launch {{ base_path }}/launch.py 
