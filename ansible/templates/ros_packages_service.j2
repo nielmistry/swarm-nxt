@@ -7,8 +7,6 @@ Type=simple
 ExecStart=/bin/bash {{ base_path }}/ros_packages_start.sh
 KillSignal=SIGINT
 KillMode=control-group
-TimeoutStopSec=15
-Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
