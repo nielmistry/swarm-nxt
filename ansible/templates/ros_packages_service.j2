@@ -5,6 +5,8 @@ After=multi-user.target
 [Service]
 Type=simple
 ExecStart=/bin/bash {{ base_path }}/ros_packages_start.sh
+KillSignal=SIGINT
+KillMode=control-group
 
 [Install]
 WantedBy=multi-user.target
